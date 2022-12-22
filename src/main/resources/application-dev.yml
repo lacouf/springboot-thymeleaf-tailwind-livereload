@@ -4,6 +4,7 @@ spring:
     mode: HTML
     encoding: UTF-8
     prefix: file:src/main/resources/templates/
+    template-resolver-order: 0
   web:
     resources:
       static-locations: file:src/main/resources/static/
