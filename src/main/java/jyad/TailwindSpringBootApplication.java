@@ -24,6 +24,7 @@ public class TailwindSpringBootApplication {
         resolver.setTemplateMode("XML");
         return resolver;
     }
+
 }
 
 
