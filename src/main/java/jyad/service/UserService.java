@@ -1,6 +1,6 @@
 package jyad.service;
 
-import jyad.domain.User;
+import jyad.domain.UserApp;
 import jyad.domain.UserDto;
 import jyad.repository.UserRepository;
 import org.springframework.data.domain.Page;
@@ -16,8 +16,8 @@ public class UserService {
         this.repository = repository;
     }
 
-    public User createUser(UserDto userDto) {
-        User user = User.builder()
+    public UserApp createUser(UserDto userDto) {
+        UserApp user = UserApp.builder()
                 .firstName(userDto.firstName())
                 .lastName(userDto.lastName())
                 .email(userDto.email())
@@ -30,7 +30,11 @@ public class UserService {
     }
 
     // tag::getUsers[]
-    public Page<User> getUsers(Pageable pageable) {
+    public Page<UserApp> getUsers(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    public boolean userWithEmailExists(String email) {
+        return repository.existsByEmail(email);
     }
 }
