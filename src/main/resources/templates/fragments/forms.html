@@ -16,11 +16,11 @@
                 <!-- th:text="#{error.messages.summary.title(${#fields.errors().size()})}"> -->
                 There were errors with your submission
             </h3>
-            <div class="mt-2 text-sm text-red-700">
-                <ul class="list-disc pl-5 space-y-1">
-                    <li th:each="err,iter : ${#fields.errors()}" th:text="${err}"></li> <!--.-->
-                </ul>
-            </div>
+<!--            <div style="visibility: hidden" class="mt-2 text-sm text-red-700">-->
+<!--                <ul class="list-disc pl-5 space-y-1">-->
+<!--                    <li th:each="err,iter : ${#fields.errors()}" th:text="${err}"></li> &lt;!&ndash;.&ndash;&gt;-->
+<!--                </ul>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

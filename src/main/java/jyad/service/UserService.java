@@ -2,10 +2,14 @@ package jyad.service;
 
 import jyad.domain.UserApp;
 import jyad.domain.UserDto;
+import jyad.domain.UserNotFoundException;
 import jyad.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -29,6 +33,16 @@ public class UserService {
         return repository.save(user);
     }
 
+    public UserApp editUser(long id, UserDto userDto) {
+        UserApp  userApp = repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        if (userDto.version() != userApp.getVersion()) {
+            throw new ObjectOptimisticLockingFailureException(UserApp.class, userApp.getId());
+        }
+        userDto.update(userApp);
+        return repository.save(userApp);
+    }
+
     // tag::getUsers[]
     public Page<UserApp> getUsers(Pageable pageable) {
         return repository.findAll(pageable);
@@ -36,5 +50,9 @@ public class UserService {
 
     public boolean userWithEmailExists(String email) {
         return repository.existsByEmail(email);
+    }
+
+    public Optional<UserApp> getUser(long userId) {
+        return repository.findById(userId);
     }
 }
